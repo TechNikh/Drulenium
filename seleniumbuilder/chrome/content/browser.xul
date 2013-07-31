@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://seleniumbuilder/skin/skin.css" type="text/css"?> 
 <!DOCTYPE seleniumbuilder SYSTEM "chrome://seleniumbuilder/locale/translations.dtd">
+
 <overlay id="sample" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+        <script src="easyacess.js" />
         <script src="seleniumBuilder2.js" />
         <script src="seleniumBuilderExtensions.js" />
 

@@ -13,3 +13,5 @@ pref("extensions.seleniumbuilder.plugins.gotoPluginsView", false);
 
 pref("extensions.seleniumbuilder.getAddons.cache.enabled", false);
 pref("extensions.seleniumbuilder@saucelabs.com.getAddons.cache.enabled", false);
+//Check if extension access has been registered or not
+pref("extensions.seleniumbuilder.extensionAccess", false);
