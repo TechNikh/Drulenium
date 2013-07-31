@@ -58,3 +58,9 @@ contract @googlecode.com/webdriver/wdsessionstoreservice;1 {b54195d3-841e-47df-b
 
 component {E8F9FEFE-C513-4097-98BE-BE00A41D3645} components/synthetic_mouse.js
 contract @googlecode.com/webdriver/syntheticmouse;1 {E8F9FEFE-C513-4097-98BE-BE00A41D3645}
+
+# Command line support for -drulenium <file>
+# document: https://developer.mozilla.org/en-US/docs/Chrome/Command_Line
+component {ddcbaa33-76b8-48e8-8f36-823877497a16} components/command_line.js
+contract @drulenium.org/commandlinehandler/general-startup;1?type=drulenium {ddcbaa33-76b8-48e8-8f36-823877497a16}
+category command-line-handler m-drulenium @drulenium.org/commandlinehandler/general-startup;1?type=drulenium
