@@ -28,10 +28,27 @@ drulenium.prototype = {
   QueryInterface: XPCOMUtils.generateQI([Ci.nsICommandLineHandler]),
   handle : function(cmdLine) {
     try {
-      var uristr = cmdLine.handleFlagWithParam(config.extension, false);
-      if (uristr) {
-        jsdump (uristr)
+      var path = cmdLine.handleFlagWithParam(config.extension, false);
+      if (path) {
         cmdLine.preventDefault = true;
+        
+        var ww = Cc["@mozilla.org/embedcomp/window-watcher;1"]
+          .getService(Ci.nsIWindowWatcher);
+        var timer = Cc["@mozilla.org/timer;1"].createInstance(Ci.nsITimer);
+        var win = ww.openWindow(null, "chrome://selenium-ide/content/selenium-ide.xul",
+          "Selenium IDE", "chrome,centerscreen", null); 
+        // Wait for selenium IDE to load
+        var event = {
+          notify: function(timer) {
+            if (win.editor) {
+              win.editor.app.loadTestCaseWithNewSuite(path);
+            }
+            else {
+              timer.initWithCallback(event, 100, Ci.nsITimer.TYPE_ONE_SHOT);
+            }
+          }
+        }
+        timer.initWithCallback(event, 100, Ci.nsITimer.TYPE_ONE_SHOT);
       }
     }
     catch (e) {
