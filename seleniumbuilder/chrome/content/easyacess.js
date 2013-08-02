@@ -1,7 +1,8 @@
 (function () {
   var config = {
     name: "drulenium_software", //Application name
-    extension: "selenium" //Extension to support
+    extension: "selenium", //Extension to support
+    msg: 'Do you want me to associate ".selenium" file extension to Drulenium addon?'
   }
   
   Cu.import("resource://gre/modules/FileUtils.jsm");
@@ -32,20 +33,26 @@
     process.init(file);
     return function (key, value) {
       var args = ["ADD", key, "/ve", "/f", "/t", "REG_EXPAND_SZ", "/d", value];
-      process.run(true, args, args.length);
+      process.runAsync(args, args.length, null, false);
     }
   })();
 
   if (!prefs.getBoolPref ("extensionAccess")) {
-    var firefox = (function () {  //Firefox.exe path
-      var file = FileUtils.getFile("CurProcD", [""]).parent;
-      file.append("firefox.exe");
-      return file.path;
-    })();
-
-    register("HKEY_CURRENT_USER\\Software\\Classes\\" + config.name + "\\shell\\open\\command", '"' + firefox + '" -drulenium "%1"');
-    register("HKEY_CURRENT_USER\\Software\\Classes\\." + config.extension, config.name);
-    
-    prefs.setBoolPref ("extensionAccess", true);
+    window.setTimeout(function () {
+      if (window.confirm(config.msg)) {
+        var firefox = (function () {  //Firefox.exe path
+          var file = FileUtils.getFile("CurProcD", [""]).parent;
+          file.append("firefox.exe");
+          return file.path;
+        })();
+        
+        try {
+          register("HKEY_CURRENT_USER\\Software\\Classes\\" + config.name + "\\shell\\open\\command", '"' + firefox + '" -drulenium "%1"');
+          register("HKEY_CURRENT_USER\\Software\\Classes\\." + config.extension, config.name);
+        }
+        catch (e) {}
+      }
+      prefs.setBoolPref ("extensionAccess", true);
+    }, 4000);
   }
 })();
