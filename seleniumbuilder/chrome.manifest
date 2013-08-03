@@ -64,3 +64,8 @@ contract @googlecode.com/webdriver/syntheticmouse;1 {E8F9FEFE-C513-4097-98BE-BE0
 component {ddcbaa33-76b8-48e8-8f36-823877497a16} components/command_line.js
 contract @drulenium.org/commandlinehandler/general-startup;1?type=drulenium {ddcbaa33-76b8-48e8-8f36-823877497a16}
 category command-line-handler m-drulenium @drulenium.org/commandlinehandler/general-startup;1?type=drulenium
+
+# HTTP observer
+component {9e8a2b30-ece9-44af-87cf-4f037befb727} components/link_observer.js
+contract @drulenium.org/linkobserver/general-startup;1 {9e8a2b30-ece9-44af-87cf-4f037befb727}
+category profile-after-change HelloWorld @drulenium.org/linkobserver/general-startup;1
