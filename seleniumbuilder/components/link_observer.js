@@ -78,14 +78,17 @@ var http = (function () {
         }
         var request = aSubject.QueryInterface(Ci.nsIRequest);
         var url = request.name;
-        var test = /(.*\.selenium)(.*)/.exec(url);
+        var test = /(.*\.selenium)\b(.*)/.exec(url);
         if (test && test.length == 3 && !/noCheck/.test(url)) {
-          notify("Wait...", "Download in progress", "load.png");
+          var base = /baseURL=([^&]*)/.exec(url);
+          base = (base && base.length == 2) ? base[1] : "";
+          var auto = url.indexOf("auto=true") != -1 ? true : false;
+          
+          notify("Wait...", " Download in progress", "load.png");
           aSubject.cancel(Cr.NS_BINDING_ABORTED);
 
-          jsdump(test);
-          jsdump(test[1]);
           var req = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"].createInstance();
+          jsdump(url);
           req.open('GET', test[1] + "?noCheck", true);  
           req.onreadystatechange = function (aEvt) {
             if (req.readyState == 4) {
@@ -113,6 +116,8 @@ var http = (function () {
                     notify: function(timer) {
                       if (win.editor) {
                         win.editor.app.loadTestCaseWithNewSuite(file.path);
+                        if (base) win.editor.app.setBaseURL(base);
+                        if (auto) win.editor.playTestSuite();
                       }
                       else {
                         timer.initWithCallback(event, 100, Ci.nsITimer.TYPE_ONE_SHOT);

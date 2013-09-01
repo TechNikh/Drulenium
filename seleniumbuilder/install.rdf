@@ -4,8 +4,8 @@
 
     <Description about="urn:mozilla:install-manifest">
         <em:id>seleniumbuilder@saucelabs.com</em:id>
-        <em:name>Selenium Builder</em:name>
-        <em:version>2.0.7</em:version>
+        <em:name>Drulenium</em:name>
+        <em:version>0.1</em:version>
         <em:type>2</em:type>
         <em:creator>Sauce Labs</em:creator>
         <em:developer>Adam Christian</em:developer>
